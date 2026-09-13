@@ -9,7 +9,7 @@ import { Esmalte } from '../models/esmalte';
 })
 export class EsmalteService {
 
-    private readonly apiUrl = 'https://localhost:5236/api/Esmaltes';
+    private readonly apiUrl = 'http://localhost:5236/api/Esmaltes';
 
     constructor(private http: HttpClient) { }
 
