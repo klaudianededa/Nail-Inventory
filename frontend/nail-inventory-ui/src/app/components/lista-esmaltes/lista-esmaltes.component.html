@@ -141,11 +141,13 @@
     </section>
 
     <div *ngIf="carregando" class="estado">
+
         <div class="spinner-border"></div>
 
         <p>
             Carregando sua coleção...
         </p>
+
     </div>
 
     <div *ngIf="erro" class="alert alert-danger">
@@ -166,10 +168,27 @@
                 </h2>
             </div>
 
-            <span class="contador">
-                {{ esmaltesFiltrados.length }}
-                {{ esmaltesFiltrados.length === 1 ? 'item' : 'itens' }}
-            </span>
+            <div class="controles-colecao">
+
+                <button type="button" class="btn-ordenacao" (click)="alternarOrdemVencimento()">
+                    <span class="icone-ordenacao">
+                        ↕
+                    </span>
+
+                    <span>
+                        {{ ordemVencimento === 'asc'
+                        ? 'Vencimento: mais próximo'
+                        : 'Vencimento: mais distante'
+                        }}
+                    </span>
+                </button>
+
+                <span class="contador">
+                    {{ esmaltesFiltrados.length }}
+                    {{ esmaltesFiltrados.length === 1 ? 'item' : 'itens' }}
+                </span>
+
+            </div>
 
         </div>
 
