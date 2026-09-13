@@ -1,64 +1,260 @@
-<h1>Meu Estoque de Esmaltes</h1>
+<div class="pagina">
 
-<div>
-    <label for="marca">Marca:</label>
+    <header class="cabecalho">
 
-    <select id="marca" [(ngModel)]="marcaSelecionada" (change)="carregarEsmaltes()">
-        <option value="">Todas</option>
+        <div>
+            <p class="eyebrow">BEM-VINDA À SUA COLEÇÃO</p>
 
-        <option *ngFor="let marca of marcas" [value]="marca">
-            {{ marca }}
-        </option>
-    </select>
+            <h1>
+                NAIL INVENT<span>♡</span>RY
+            </h1>
 
-    <label for="vencimento">Vencimento até:</label>
+            <p class="subtitulo">
+                Organize seus esmaltes e tenha sua coleção sempre por perto.
+            </p>
+        </div>
 
-    <input id="vencimento" type="date" [(ngModel)]="vencimentoAte" (change)="carregarEsmaltes()" />
+        <a routerLink="/esmaltes/novo" class="btn btn-novo">
+            <span>+</span>
+            Novo esmalte
+        </a>
 
-    <button type="button" (click)="limparFiltros()">
-        Limpar filtros
-    </button>
-</div>
+    </header>
 
-<hr>
+    <section class="resumo">
 
-<p *ngIf="carregando">
-    Carregando esmaltes...
-</p>
+        <div class="card-resumo">
 
-<p *ngIf="erro">
-    {{ erro }}
-</p>
+            <div class="icone-resumo">
+                ♡
+            </div>
 
-<p *ngIf="!carregando && !erro">
-    {{ esmaltes.length }} esmaltes encontrados
-</p>
+            <div class="info-resumo">
+                <span>TOTAL</span>
+                <strong>{{ esmaltes.length }}</strong>
+                <small>esmaltes cadastrados</small>
+            </div>
 
-<div *ngFor="let esmalte of esmaltes">
+        </div>
 
-    <div *ngIf="esmalte.caminhoImagem">
-        <img [src]="esmalte.caminhoImagem" [alt]="esmalte.nome" />
+        <div class="card-resumo">
+
+            <div class="icone-resumo">
+                ✦
+            </div>
+
+            <div class="info-resumo">
+                <span>MARCAS</span>
+                <strong>{{ marcas.length }}</strong>
+                <small>marcas cadastradas</small>
+            </div>
+
+        </div>
+
+        <div class="card-resumo">
+
+            <div class="icone-resumo icone-vencidos">
+                !
+            </div>
+
+            <div class="info-resumo">
+                <span>VENCIDOS</span>
+                <strong>{{ quantidadeVencidos }}</strong>
+                <small>esmaltes vencidos</small>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="filtros">
+
+        <div class="busca">
+            <span class="icone-busca">⌕</span>
+
+            <input type="text" [(ngModel)]="busca" (input)="aoBuscar()" placeholder="Buscar por esmalte ou marca..." />
+        </div>
+
+        <div class="filtros-data">
+
+            <label for="vencimento">
+                VENCIMENTO ATÉ
+            </label>
+
+            <input id="vencimento" type="date" class="form-control" [(ngModel)]="vencimentoAte"
+                (change)="carregarEsmaltes()" />
+
+        </div>
+
+        <button type="button" class="btn-limpar" (click)="limparFiltros()">
+            ↻ Limpar
+        </button>
+
+    </section>
+
+    <section class="filtros-rapidos">
+
+        <div class="grupo-filtro">
+
+            <div class="titulo-filtro">
+                <span>⌑</span>
+                Marcas
+            </div>
+
+            <button type="button" class="filtro-chip" [class.ativo]="!marcaSelecionada" (click)="selecionarMarca('')">
+                Todas
+            </button>
+
+            <button type="button" class="filtro-chip" *ngFor="let marca of marcas"
+                [class.ativo]="marcaSelecionada === marca" (click)="selecionarMarca(marca)">
+                {{ marca }}
+            </button>
+
+        </div>
+
+        <div class="divisor"></div>
+
+        <div class="grupo-filtro">
+
+            <div class="titulo-filtro">
+                <span>◷</span>
+                Status
+            </div>
+
+            <button type="button" class="filtro-chip" [class.ativo]="filtroStatus === 'todos'"
+                (click)="selecionarStatus('todos')">
+                Todos
+            </button>
+
+            <button type="button" class="filtro-chip vencido" [class.ativo]="filtroStatus === 'vencidos'"
+                (click)="selecionarStatus('vencidos')">
+                ⚠ Vencidos
+            </button>
+
+            <button type="button" class="filtro-chip este-ano" [class.ativo]="filtroStatus === 'esteAno'"
+                (click)="selecionarStatus('esteAno')">
+                ◷ Vence este ano
+            </button>
+
+        </div>
+
+    </section>
+
+    <div *ngIf="carregando" class="estado">
+        <div class="spinner-border"></div>
+
+        <p>
+            Carregando sua coleção...
+        </p>
     </div>
 
-    <h2>{{ esmalte.nome }}</h2>
+    <div *ngIf="erro" class="alert alert-danger">
+        {{ erro }}
+    </div>
 
-    <p>
-        Marca: {{ esmalte.marca }}
-    </p>
+    <section *ngIf="!carregando && !erro" class="colecao">
 
-    <p *ngIf="esmalte.dataVencimento">
-        Vencimento: {{ esmalte.dataVencimento | date:'MM/yyyy' }}
-    </p>
+        <div class="cabecalho-colecao">
 
-    <p *ngIf="esmalte.observacoes">
-        {{ esmalte.observacoes }}
-    </p>
+            <div>
+                <span class="eyebrow">
+                    MINHA COLEÇÃO
+                </span>
 
-    <button type="button" [routerLink]="['/esmaltes/editar', esmalte.id]">
-        Editar
-    </button>
+                <h2>
+                    Seus esmaltes
+                </h2>
+            </div>
 
-    <button type="button" (click)="excluirEsmalte(esmalte.id)">
-        Excluir
-    </button>
+            <span class="contador">
+                {{ esmaltesFiltrados.length }}
+                {{ esmaltesFiltrados.length === 1 ? 'item' : 'itens' }}
+            </span>
+
+        </div>
+
+        <div *ngIf="esmaltesFiltrados.length === 0" class="estado vazio">
+
+            <div class="icone-vazio">
+                ♡
+            </div>
+
+            <h3>
+                Nenhum esmalte encontrado
+            </h3>
+
+            <p>
+                Tente mudar os filtros ou cadastrar um novo esmalte.
+            </p>
+
+            <a routerLink="/esmaltes/novo" class="btn btn-novo">
+                + Cadastrar esmalte
+            </a>
+
+        </div>
+
+        <div *ngIf="esmaltesFiltrados.length > 0" class="grid-esmaltes">
+
+            <article *ngFor="let esmalte of esmaltesFiltrados" class="card-esmalte"
+                [class.card-vencido]="estaVencido(esmalte)"
+                [class.card-proximo-vencimento]="venceEmAteSeisMeses(esmalte)">
+
+                <div class="imagem-container">
+
+                    <img *ngIf="esmalte.caminhoImagem" [src]="esmalte.caminhoImagem" [alt]="esmalte.nome"
+                        class="imagem-esmalte" />
+
+                    <div *ngIf="!esmalte.caminhoImagem" class="imagem-placeholder">
+                        <span>💅</span>
+                        <small>Sem imagem</small>
+                    </div>
+
+                </div>
+
+                <div class="conteudo-card">
+
+                    <span class="marca">
+                        {{ esmalte.marca }}
+                    </span>
+
+                    <h3>
+                        {{ esmalte.nome }}
+                    </h3>
+
+                    <div *ngIf="esmalte.dataVencimento" class="vencimento">
+
+                        <span>
+                            Vencimento
+                        </span>
+
+                        <strong>
+                            {{ esmalte.dataVencimento | date:'MM/yyyy' }}
+                        </strong>
+
+                    </div>
+
+                    <p *ngIf="esmalte.observacoes" class="observacoes">
+                        {{ esmalte.observacoes }}
+                    </p>
+
+                    <div class="acoes">
+
+                        <a [routerLink]="['/esmaltes/editar', esmalte.id]" class="btn btn-editar">
+                            Editar
+                        </a>
+
+                        <button type="button" class="btn btn-excluir" (click)="excluirEsmalte(esmalte.id)">
+                            Excluir
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
 </div>
