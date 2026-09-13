@@ -45,4 +45,8 @@ export class EsmalteService {
     updateEsmalte(id: number, esmalte: Esmalte): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${id}`, esmalte);
     }
+
+    deleteEsmalte(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
 }

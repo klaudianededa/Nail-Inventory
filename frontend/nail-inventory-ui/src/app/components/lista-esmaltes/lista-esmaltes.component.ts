@@ -64,4 +64,22 @@ export class ListaEsmaltesComponent implements OnInit {
     this.vencimentoAte = '';
     this.carregarEsmaltes();
   }
+
+  excluirEsmalte(id: number): void {
+    const confirmar = confirm('Tem certeza que deseja excluir este esmalte?');
+
+    if (!confirmar) {
+      return;
+    }
+
+    this.esmalteService.deleteEsmalte(id).subscribe({
+      next: () => {
+        this.carregarEsmaltes();
+      },
+      error: (erro) => {
+        console.error('Erro ao excluir esmalte:', erro);
+        this.erro = 'Não foi possível excluir o esmalte.';
+      }
+    });
+  }
 }

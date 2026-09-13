@@ -52,4 +52,8 @@
     <button type="button" [routerLink]="['/esmaltes/editar', esmalte.id]">
         Editar
     </button>
+
+    <button type="button" (click)="excluirEsmalte(esmalte.id)">
+        Excluir
+    </button>
 </div>
