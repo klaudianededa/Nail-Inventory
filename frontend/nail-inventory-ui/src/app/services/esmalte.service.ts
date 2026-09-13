@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Esmalte } from '../models/esmalte';
@@ -13,7 +13,20 @@ export class EsmalteService {
 
     constructor(private http: HttpClient) { }
 
-    getEsmaltes(): Observable<Esmalte[]> {
-        return this.http.get<Esmalte[]>(this.apiUrl);
+    getEsmaltes(
+        marca?: string,
+        vencimentoAte?: string
+    ): Observable<Esmalte[]> {
+        let params = new HttpParams();
+
+        if (marca) {
+            params = params.set('marca', marca);
+        }
+
+        if (vencimentoAte) {
+            params = params.set('vencimentoAte', vencimentoAte);
+        }
+
+        return this.http.get<Esmalte[]>(this.apiUrl, { params });
     }
 }
