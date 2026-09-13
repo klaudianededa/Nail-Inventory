@@ -1,0 +1,34 @@
+<h1>Cadastrar esmalte</h1>
+
+<form (ngSubmit)="cadastrarEsmalte()">
+    <div>
+        <label for="nome">Nome:</label>
+
+        <input id="nome" type="text" name="nome" [(ngModel)]="novoEsmalte.nome" />
+    </div>
+
+    <div>
+        <label for="marca">Marca:</label>
+
+        <input id="marca" type="text" name="marca" [(ngModel)]="novoEsmalte.marca" />
+    </div>
+
+    <div>
+        <label for="dataVencimento">Vencimento:</label>
+
+        <input id="dataVencimento" type="date" name="dataVencimento" [(ngModel)]="novoEsmalte.dataVencimento" />
+    </div>
+
+    <div>
+        <label for="observacoes">Observações:</label>
+
+        <textarea id="observacoes" name="observacoes" [(ngModel)]="novoEsmalte.observacoes"></textarea>
+    </div>
+
+    <button type="submit" [disabled]="cadastrando">
+        {{ cadastrando ? 'Cadastrando...' : 'Cadastrar' }}
+    </button>
+    <p *ngIf="erroCadastro">
+        {{ erroCadastro }}
+    </p>
+</form>

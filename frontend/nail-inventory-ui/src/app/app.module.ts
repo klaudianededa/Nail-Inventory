@@ -5,10 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { ListaEsmaltesComponent } from './components/lista-esmaltes/lista-esmaltes.component';
+import { CadastroEsmalteComponent } from './components/cadastro-esmalte/cadastro-esmalte.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListaEsmaltesComponent,
+    CadastroEsmalteComponent
   ],
   imports: [
     BrowserModule,
