@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Nail_InventoryAPI.Repositories;
+using NailInventoryAPI.Repositories;
 using NailInventoryAPI.DTOs;
 using NailInventoryAPI.Models;
 using NailInventoryAPI.Repositories;
@@ -67,8 +67,7 @@ public class EsmaltesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<EsmalteReadDto>> PostEsmalte(
-        EsmalteCreateDto dto)
+    public async Task<ActionResult<EsmalteReadDto>> PostEsmalte(EsmalteCreateDto dto)
     {
         var esmalte = new Esmalte
         {
@@ -99,8 +98,8 @@ public class EsmaltesController : ControllerBase
 
     [HttpPut("{id}")]
     public async Task<IActionResult> PutEsmalte(
-        int id,
-        EsmalteCreateDto dto)
+      int id,
+      EsmalteCreateDto dto)
     {
         var esmalte = await _repository.GetByIdAsync(id);
 

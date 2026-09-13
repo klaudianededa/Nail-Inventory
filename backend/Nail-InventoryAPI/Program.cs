@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Nail_InventoryAPI.Repositories;
+using NailInventoryAPI.Repositories;
 using NailInventoryAPI.Data;
+using NailInventoryAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
 
 app.UseCors("Angular");
 

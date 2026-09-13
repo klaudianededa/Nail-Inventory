@@ -1,6 +1,6 @@
 ﻿using NailInventoryAPI.Models;
 
-namespace Nail_InventoryAPI.Repositories;
+namespace NailInventoryAPI.Repositories;
 
 public interface IEsmalteRepository
 {

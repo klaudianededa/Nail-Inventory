@@ -25,6 +25,12 @@
         <textarea id="observacoes" name="observacoes" [(ngModel)]="novoEsmalte.observacoes"></textarea>
     </div>
 
+    <div>
+        <label for="caminhoImagem">URL da imagem:</label>
+        <input id="caminhoImagem" type="url" name="caminhoImagem" [(ngModel)]="novoEsmalte.caminhoImagem"
+            placeholder="https://..." />
+    </div>
+
     <button type="submit" [disabled]="cadastrando">
         {{ editando ? 'Salvar alterações' : 'Cadastrar' }}
     </button>
