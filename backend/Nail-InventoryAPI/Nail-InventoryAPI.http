@@ -1,0 +1,6 @@
+@Nail_InventoryAPI_HostAddress = http://localhost:5236
+
+GET {{Nail_InventoryAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
