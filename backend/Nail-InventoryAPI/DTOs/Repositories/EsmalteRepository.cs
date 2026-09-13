@@ -13,9 +13,25 @@ public class EsmalteRepository : IEsmalteRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Esmalte>> GetAllAsync()
+    public async Task<IEnumerable<Esmalte>> GetAllAsync(
+        string? marca,
+        DateTime? vencimentoAte)
     {
-        return await _context.Esmaltes.ToListAsync();
+        var query = _context.Esmaltes.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(marca))
+        {
+            query = query.Where(e => e.Marca == marca);
+        }
+
+        if (vencimentoAte.HasValue)
+        {
+            query = query.Where(e =>
+                e.DataVencimento.HasValue &&
+                e.DataVencimento.Value <= vencimentoAte.Value);
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<Esmalte?> GetByIdAsync(int id)
@@ -23,7 +39,7 @@ public class EsmalteRepository : IEsmalteRepository
         return await _context.Esmaltes.FindAsync(id);
     }
 
-    public async Task<Esmalte> CreateAsync(Esmalte esmalte)
+    public async Task<Esmalte> AddAsync(Esmalte esmalte)
     {
         _context.Esmaltes.Add(esmalte);
         await _context.SaveChangesAsync();
