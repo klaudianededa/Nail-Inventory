@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NailInventoryAPI.Data;
 using NailInventoryAPI.Repositories;
+using NailInventoryAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddScoped<IEsmalteRepository, EsmalteRepository>();
+
+builder.Services.AddHttpClient<IGoogleImageSearchService, GoogleImageSearchService>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
