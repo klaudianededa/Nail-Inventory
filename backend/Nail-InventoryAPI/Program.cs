@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using NailInventoryAPI.Data;
+using NailInventoryAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("TiDBConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddScoped<IEsmalteRepository, EsmalteRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
