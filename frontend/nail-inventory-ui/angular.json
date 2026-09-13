@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "nail-inventory-ui"
+    }
+  },
+  "defaultProject": "nail-inventory-ui",
+  "cli": {
+    "analytics": false
+  }
 }
