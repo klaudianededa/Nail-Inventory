@@ -393,11 +393,11 @@
 }
 
 .card-vencido {
-    border-color: #a6535b;
+    border: 1px solid #a94f5b;
 }
 
 .card-proximo-vencimento {
-    border-color: #b89145;
+    border: 1px solid #b89145;
 }
 
 .imagem-container {
@@ -485,19 +485,23 @@
 }
 
 .card-vencido .vencimento {
-    background: #2c1c20;
+    background: #ac2448;
+    border: 1px solid #6f303b;
 }
 
+.card-vencido .vencimento span,
 .card-vencido .vencimento strong {
-    color: #dd8585;
+    color: #ffffff;
 }
 
 .card-proximo-vencimento .vencimento {
-    background: #2b2419;
+    background: #ebb050;
+    border: 1px solid #b98920;
 }
 
+.card-proximo-vencimento .vencimento span,
 .card-proximo-vencimento .vencimento strong {
-    color: #d7b665;
+    color: #ffffff;
 }
 
 .observacoes {
