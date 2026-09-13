@@ -2,7 +2,7 @@
 using NailInventoryAPI.Data;
 using NailInventoryAPI.Models;
 
-namespace NailInventoryAPI.Repositories;
+namespace Nail_InventoryAPI.Repositories;
 
 public class EsmalteRepository : IEsmalteRepository
 {

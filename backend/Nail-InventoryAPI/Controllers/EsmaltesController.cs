@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Nail_InventoryAPI.Repositories;
 using NailInventoryAPI.DTOs;
 using NailInventoryAPI.Models;
-using NailInventoryAPI.Repositories;
 using NailInventoryAPI.Services;
 
 namespace NailInventoryAPI.Controllers;

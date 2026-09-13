@@ -1,13 +1,5 @@
 ﻿using System.Text.Json;
 
-namespace Nail_InventoryAPI.Services
-{
-    public class GoogleImageSearchService
-    {
-    }
-}
-using System.Text.Json;
-
 namespace NailInventoryAPI.Services;
 
 public class GoogleImageSearchService : IGoogleImageSearchService
