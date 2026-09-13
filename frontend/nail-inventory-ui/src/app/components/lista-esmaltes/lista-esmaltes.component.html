@@ -48,4 +48,8 @@
     <p *ngIf="esmalte.observacoes">
         {{ esmalte.observacoes }}
     </p>
+
+    <button type="button" [routerLink]="['/esmaltes/editar', esmalte.id]">
+        Editar
+    </button>
 </div>

@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'esmaltes/novo',
     component: CadastroEsmalteComponent
+  },
+  {
+    path: 'esmaltes/editar/:id',
+    component: CadastroEsmalteComponent
   }
 ];
 

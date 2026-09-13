@@ -30,11 +30,19 @@ export class EsmalteService {
         return this.http.get<Esmalte[]>(this.apiUrl, { params });
     }
 
+    getEsmalte(id: number): Observable<Esmalte> {
+        return this.http.get<Esmalte>(`${this.apiUrl}/${id}`);
+    }
+
     getMarcas(): Observable<string[]> {
         return this.http.get<string[]>(`${this.apiUrl}/marcas`);
     }
 
     postEsmalte(esmalte: Esmalte): Observable<Esmalte> {
         return this.http.post<Esmalte>(this.apiUrl, esmalte);
+    }
+
+    updateEsmalte(id: number, esmalte: Esmalte): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${id}`, esmalte);
     }
 }

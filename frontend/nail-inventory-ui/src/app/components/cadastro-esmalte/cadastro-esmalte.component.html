@@ -1,6 +1,6 @@
-<h1>Cadastrar esmalte</h1>
+<h1>{{ editando ? 'Editar esmalte' : 'Cadastrar esmalte' }}</h1>
 
-<form (ngSubmit)="cadastrarEsmalte()">
+<form (ngSubmit)="salvarEsmalte()">
     <div>
         <label for="nome">Nome:</label>
 
@@ -26,8 +26,9 @@
     </div>
 
     <button type="submit" [disabled]="cadastrando">
-        {{ cadastrando ? 'Cadastrando...' : 'Cadastrar' }}
+        {{ editando ? 'Salvar alterações' : 'Cadastrar' }}
     </button>
+
     <p *ngIf="erroCadastro">
         {{ erroCadastro }}
     </p>
