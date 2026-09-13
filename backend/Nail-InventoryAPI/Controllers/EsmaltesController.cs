@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nail_InventoryAPI.Repositories;
 using NailInventoryAPI.DTOs;
 using NailInventoryAPI.Models;
-using NailInventoryAPI.Services;
+using NailInventoryAPI.Repositories;
 
 namespace NailInventoryAPI.Controllers;
 
@@ -11,16 +11,16 @@ namespace NailInventoryAPI.Controllers;
 public class EsmaltesController : ControllerBase
 {
     private readonly IEsmalteRepository _repository;
-    private readonly IGoogleImageSearchService _imageService;
 
-    public EsmaltesController(IEsmalteRepository repository, IGoogleImageSearchService imageService)
+    public EsmaltesController(IEsmalteRepository repository)
     {
         _repository = repository;
-        _imageService = imageService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<EsmalteReadDto>>> GetEsmaltes([FromQuery] string? marca, [FromQuery] DateTime? vencimentoAte)
+    public async Task<ActionResult<IEnumerable<EsmalteReadDto>>> GetEsmaltes(
+        [FromQuery] string? marca,
+        [FromQuery] DateTime? vencimentoAte)
     {
         var esmaltes = await _repository.GetAllAsync(marca, vencimentoAte);
 
@@ -49,7 +49,11 @@ public class EsmaltesController : ControllerBase
     public async Task<ActionResult<EsmalteReadDto>> GetEsmalte(int id)
     {
         var e = await _repository.GetByIdAsync(id);
-        if (e == null) return NotFound();
+
+        if (e == null)
+        {
+            return NotFound();
+        }
 
         return Ok(new EsmalteReadDto
         {
@@ -63,14 +67,9 @@ public class EsmaltesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<EsmalteReadDto>> PostEsmalte(EsmalteCreateDto dto)
+    public async Task<ActionResult<EsmalteReadDto>> PostEsmalte(
+        EsmalteCreateDto dto)
     {
-        // Chama a API do Google caso o caminho da imagem venha vazio
-        if (string.IsNullOrWhiteSpace(dto.CaminhoImagem))
-        {
-            dto.CaminhoImagem = await _imageService.BuscarImagemAsync(dto.Marca, dto.Nome);
-        }
-
         var esmalte = new Esmalte
         {
             Nome = dto.Nome,
@@ -92,14 +91,23 @@ public class EsmaltesController : ControllerBase
             CaminhoImagem = created.CaminhoImagem
         };
 
-        return CreatedAtAction(nameof(GetEsmalte), new { id = created.Id }, readDto);
+        return CreatedAtAction(
+            nameof(GetEsmalte),
+            new { id = created.Id },
+            readDto);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutEsmalte(int id, EsmalteCreateDto dto)
+    public async Task<IActionResult> PutEsmalte(
+        int id,
+        EsmalteCreateDto dto)
     {
         var esmalte = await _repository.GetByIdAsync(id);
-        if (esmalte == null) return NotFound();
+
+        if (esmalte == null)
+        {
+            return NotFound();
+        }
 
         esmalte.Nome = dto.Nome;
         esmalte.Marca = dto.Marca;
@@ -116,7 +124,11 @@ public class EsmaltesController : ControllerBase
     public async Task<IActionResult> DeleteEsmalte(int id)
     {
         var esmalte = await _repository.GetByIdAsync(id);
-        if (esmalte == null) return NotFound();
+
+        if (esmalte == null)
+        {
+            return NotFound();
+        }
 
         await _repository.DeleteAsync(id);
 

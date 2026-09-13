@@ -35,6 +35,11 @@
 </p>
 
 <div *ngFor="let esmalte of esmaltes">
+
+    <div *ngIf="esmalte.caminhoImagem">
+        <img [src]="esmalte.caminhoImagem" [alt]="esmalte.nome" />
+    </div>
+
     <h2>{{ esmalte.nome }}</h2>
 
     <p>
