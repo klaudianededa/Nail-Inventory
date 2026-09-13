@@ -9,4 +9,5 @@ public interface IEsmalteRepository
     Task<Esmalte> AddAsync(Esmalte esmalte);
     Task UpdateAsync(Esmalte esmalte);
     Task DeleteAsync(int id);
+    Task<IEnumerable<string>> GetMarcasAsync();
 }

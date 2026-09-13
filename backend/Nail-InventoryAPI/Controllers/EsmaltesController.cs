@@ -37,6 +37,14 @@ public class EsmaltesController : ControllerBase
         return Ok(dtos);
     }
 
+    [HttpGet("marcas")]
+    public async Task<ActionResult<IEnumerable<string>>> GetMarcas()
+    {
+        var marcas = await _repository.GetMarcasAsync();
+
+        return Ok(marcas);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<EsmalteReadDto>> GetEsmalte(int id)
     {

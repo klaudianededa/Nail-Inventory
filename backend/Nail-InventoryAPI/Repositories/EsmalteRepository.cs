@@ -63,4 +63,13 @@ public class EsmalteRepository : IEsmalteRepository
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task<IEnumerable<string>> GetMarcasAsync()
+    {
+        return await _context.Esmaltes
+            .Select(e => e.Marca)
+            .Distinct()
+            .OrderBy(m => m)
+            .ToListAsync();
+    }
 }

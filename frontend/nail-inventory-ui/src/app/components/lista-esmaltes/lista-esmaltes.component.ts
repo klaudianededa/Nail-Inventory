@@ -11,6 +11,7 @@ import { EsmalteService } from '../../services/esmalte.service';
 export class ListaEsmaltesComponent implements OnInit {
 
   esmaltes: Esmalte[] = [];
+  marcas: string[] = [];
 
   marcaSelecionada = '';
   vencimentoAte = '';
@@ -21,6 +22,7 @@ export class ListaEsmaltesComponent implements OnInit {
   constructor(private esmalteService: EsmalteService) { }
 
   ngOnInit(): void {
+    this.carregarMarcas();
     this.carregarEsmaltes();
   }
 
@@ -44,6 +46,17 @@ export class ListaEsmaltesComponent implements OnInit {
           this.carregando = false;
         }
       });
+  }
+
+  carregarMarcas(): void {
+    this.esmalteService.getMarcas().subscribe({
+      next: (marcas) => {
+        this.marcas = marcas;
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar marcas:', erro);
+      }
+    });
   }
 
   limparFiltros(): void {

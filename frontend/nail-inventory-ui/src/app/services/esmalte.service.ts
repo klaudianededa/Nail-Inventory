@@ -29,4 +29,12 @@ export class EsmalteService {
 
         return this.http.get<Esmalte[]>(this.apiUrl, { params });
     }
+
+    getMarcas(): Observable<string[]> {
+        return this.http.get<string[]>(`${this.apiUrl}/marcas`);
+    }
+
+    postEsmalte(esmalte: Esmalte): Observable<Esmalte> {
+        return this.http.post<Esmalte>(this.apiUrl, esmalte);
+    }
 }
